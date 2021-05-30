@@ -31,7 +31,7 @@ func banner() {
 	 _____           _        _____               
 	|  __ \         | |      |   __ \         
 	| |__) _ __ ___ | |_ ___ |  |__) |
-	|  ___| '__/ _ \| __/ _ \|  ___ /
+	|  ___| '__/ _ \| __/ _ \|  ____ /
 	| |   | | | (_) | || (_) | |
 	|_|   |_|  \___/ \__\___||_|
 													
@@ -57,7 +57,7 @@ func main() {
 		for i := 0; i < concurrency; i++ {
 			wg.Add(1)
 			go func() {
-				ProtoScan()
+				ProtoP()
 				wg.Done()
 			}()
 			wg.Wait()
@@ -68,7 +68,7 @@ func main() {
 		for i := 0; i < concurrency; i++ {
 			wg.Add(1)
 			go func() {
-				ProtoScan()
+				ProtoP()
 				wg.Done()
 			}()
 			wg.Wait()
@@ -76,8 +76,8 @@ func main() {
 	}
 }
 
-// ProtoScan scans
-func ProtoScan() {
+// ProtoP scans
+func ProtoP() {
 	sc := bufio.NewScanner(os.Stdin)
 	for sc.Scan() {
 		// create context
@@ -89,8 +89,8 @@ func ProtoScan() {
 		var res string
 		if urls == true {
 			err := chromedp.Run(ctx,
-				chromedp.Navigate(url+"&__proto__[protoscan]=protoscan"),
-				chromedp.Evaluate(`window.protoscan`, &res),
+				chromedp.Navigate(url+"&__proto__[test]=test"),
+				chromedp.Evaluate(`window.test`, &res),
 			)
 			cancel()
 			if err != nil {
@@ -99,8 +99,8 @@ func ProtoScan() {
 			}
 		} else {
 			err := chromedp.Run(ctx,
-				chromedp.Navigate(url+"/"+"?__proto__[protoscan]=protoscan"),
-				chromedp.Evaluate(`window.protoscan`, &res),
+				chromedp.Navigate(url+"/"+"?__proto__[test]=test"),
+				chromedp.Evaluate(`window.test`, &res),
 			)
 			cancel()
 			if err != nil {
